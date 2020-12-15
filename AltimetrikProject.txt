@@ -1,0 +1,61 @@
+POST Method:
+import io.restassured.RestAssured;
+import io.restassured.http.ContentType;
+import org.junit.Test;
+
+import static io.restassured.RestAssured.given;
+
+public class restAssuredPostRequest {
+
+    @Test
+    public void createEmployee() {
+        RestAssured.baseURI = "http://dummy.restapiexample.com";
+        given().urlEncodingEnabled(true)
+            .param("name", "test")
+            .param("salary", 123)
+.param("age", 23)
+            .header("Accept", ContentType.JSON.getAcceptHeader())
+            .post("/employeeCreation")
+            .then().statusCode(200);
+    }
+}
+
+
+GET Method:
+
+URL url = new URL("http://dummy.restapiexample.com");
+
+HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+conn.setRequestMethod("GET");
+conn.connect();
+int responsecode = conn.getResponseCode();
+
+
+PUT Method:
+import org.testng.Assert;
+import org.testng.annotations.Test;
+import io.restassured.RestAssured;
+import io.restassured.response.Response;
+import io.restassured.specification.RequestSpecification;
+import net.minidev.json.JSONObject;
+ 
+ 
+public void UpdateEmployee(){
+int empid = 719;
+int age=23;
+int salary=123;
+ 
+ RestAssured.baseURI ="https://dummy.restapiexample.com";
+ RequestSpecification request = RestAssured.given();
+ 
+ JSONObject requestParams = new JSONObject();
+ requestParams.put("name", "test1"); 
+  
+ request.body(requestParams.toJSONString());
+ Response response = request.put("/update/"+ name);
+ 
+ int statusCode = response.getStatusCode();
+ System.out.println(response.asString());
+ Assert.assertEquals(statusCode, 200); 
+ 
+ }
